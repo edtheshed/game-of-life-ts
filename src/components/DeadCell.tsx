@@ -10,7 +10,7 @@ export class DeadCell implements CellState {
     }
 
     setNextState(numberOfNeighbours: number): void {
-        if (numberOfNeighbours == 3){
+        if (numberOfNeighbours === 3){
             this.nextState = new AliveCell;
         }
         else {

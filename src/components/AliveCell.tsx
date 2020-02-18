@@ -37,7 +37,7 @@ export class AliveCell implements CellState {
     }
 
     private isHappyWithLife(numberOfNeighbours: number): boolean {
-        if (numberOfNeighbours == 3 || numberOfNeighbours == 2){
+        if (numberOfNeighbours === 3 || numberOfNeighbours === 2){
             return true;
         }
         return false;
