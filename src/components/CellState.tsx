@@ -1,6 +1,8 @@
 export interface CellState {
 
-    setNextState(numberOfNeighbours: number): void;
-    getCellState(): CellState;
+    setNextCellState(numberOfNeighbours: number): void;
+
+    getNextCellState(): CellState;
+
     isAlive(): boolean;
 }

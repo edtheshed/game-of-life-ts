@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {ConfigBar} from "./ConfigBar";
+import {ConfigValues} from "./ConfigValues";
+import {Header} from "./components/Header";
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component<any, ConfigValues> {
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            width: 0,
+            height: 0,
+            cycleInterval: 0
+        }
+    }
+
+    setConfig(values: ConfigValues) {
+        this.setState({
+            width: values.width,
+            height: values.height,
+            cycleInterval: values.cycleInterval
+        })
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Header />
+                <ConfigBar onClick={this.setConfig.bind(this)}/>
+                <h1>{this.state.width}</h1>
+                <h1>{this.state.height}</h1>
+            </div>
+        )
+    }
 }
 
 export default App;
