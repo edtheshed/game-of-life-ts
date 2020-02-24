@@ -1,7 +1,7 @@
 import React from "react";
 import {ConfigValues} from "./ConfigValues";
 
-export function ConfigBar(props: { onClick: any }) {
+function ConfigBar(props: { getConfig: any }) {
 
     let widthRef = React.createRef<any>();
     let heightRef = React.createRef<any>();
@@ -14,7 +14,7 @@ export function ConfigBar(props: { onClick: any }) {
             cycleInterval: cycleRef.current.value
         };
 
-        props.onClick(values);
+        props.getConfig(values);
 
     }
 
@@ -24,9 +24,11 @@ export function ConfigBar(props: { onClick: any }) {
 
             <input id="height" type="number" ref={heightRef}/>
 
-            <input id="cycleInterval" type="number" ref={cycleRef}/>
+            <input id="cycle-interval" type="number" ref={cycleRef}/>
 
             <button id="button-create" onClick={getValues}>Submit</button>
         </div>
     );
 }
+
+export default ConfigBar;

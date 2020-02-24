@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import {ConfigBar} from "./ConfigBar";
-import {ConfigValues} from "./ConfigValues";
+import ConfigBar from "./components/ConfigBar";
+import {ConfigValues} from "./components/ConfigValues";
 import {Header} from "./components/Header";
+import {GameOfLife} from "./components/GameOfLife/GameOfLife"
 
 class App extends React.Component<any, ConfigValues> {
 
@@ -27,7 +28,8 @@ class App extends React.Component<any, ConfigValues> {
         return (
             <div className="App">
                 <Header />
-                <ConfigBar onClick={this.setConfig.bind(this)}/>
+                <GameOfLife />
+                <ConfigBar getConfig={this.setConfig.bind(this)}/>
                 <h1>{this.state.width}</h1>
                 <h1>{this.state.height}</h1>
             </div>
