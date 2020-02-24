@@ -1,7 +1,7 @@
 import React from "react";
 import {ConfigValues} from "./ConfigValues";
 
-function ConfigBar(props: { getConfig: any }) {
+export function ConfigBar(props: { getConfig: any }) {
 
     let widthRef = React.createRef<any>();
     let heightRef = React.createRef<any>();
@@ -30,5 +30,3 @@ function ConfigBar(props: { getConfig: any }) {
         </div>
     );
 }
-
-export default ConfigBar;

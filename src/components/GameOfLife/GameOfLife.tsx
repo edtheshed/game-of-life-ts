@@ -13,6 +13,8 @@ export class GameOfLife extends React.Component<any, gameConfig> {
             start: props.start
         }
     }
+
+
 }
 
 interface gameConfig {

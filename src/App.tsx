@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ConfigBar from "./components/ConfigBar";
+import {ConfigBar} from "./components/ConfigBar";
 import {ConfigValues} from "./components/ConfigValues";
 import {Header} from "./components/Header";
 import {GameOfLife} from "./components/GameOfLife/GameOfLife"

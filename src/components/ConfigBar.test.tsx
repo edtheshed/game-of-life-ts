@@ -1,6 +1,6 @@
 import React from "react";
 import {mount, render, shallow} from "enzyme";
-import ConfigBar from "./ConfigBar";
+import {ConfigBar} from "./ConfigBar";
 
 describe("given a config bar", () => {
 
