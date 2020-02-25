@@ -5,4 +5,6 @@ export interface CellState {
     getNextCellState(): CellState;
 
     isAlive(): boolean;
+
+    getId(): string;
 }

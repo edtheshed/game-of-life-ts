@@ -3,25 +3,25 @@ import {DeadCell} from "./DeadCell";
 import {AliveCell} from "./AliveCell";
 
 export default class Game {
-    height: number;
     width: number;
+    height: number;
     board: CellState[][];
 
     constructor(width: number, height: number) {
-        this.height = height;
-        this.width = width;
+        this.width = height;
+        this.height = width;
         this.board = new Array<Array<CellState>>();
 
         for (let x: number = 0; x < width; x++) {
             this.board[x] = [];
             for (let y: number = 0; y < height; y++) {
-                this.board[x][y] = new DeadCell();
+                this.board[x][y] = new DeadCell(`${x}${y}`);
             }
         }
     }
 
     setCellAlive(x: number, y: number): void {
-        this.board[x][y] = new AliveCell();
+        this.board[x][y] = new AliveCell(`${x}${y}`);
     }
 
     isCellAlive(x: number, y: number): boolean {
@@ -29,8 +29,8 @@ export default class Game {
     }
 
     cycle(): void {
-        for (let y: number = 0; y < this.height; y++) {
-            for (let x: number = 0; x < this.width; x++) {
+        for (let y: number = 0; y < this.width; y++) {
+            for (let x: number = 0; x < this.height; x++) {
                 let numberOfNeighbours = this.countNeighbours(x, y);
 
                 if (this.board[x][y].isAlive() || numberOfNeighbours === 3) {
@@ -39,8 +39,8 @@ export default class Game {
             }
         }
 
-        for (let y: number = 0; y < this.height; y++) {
-            for (let x: number = 0; x < this.width; x++) {
+        for (let y: number = 0; y < this.width; y++) {
+            for (let x: number = 0; x < this.height; x++) {
                 this.board[x][y] = this.board[x][y].getNextCellState();
             }
         }

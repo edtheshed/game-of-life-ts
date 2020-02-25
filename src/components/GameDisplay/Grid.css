@@ -1,0 +1,21 @@
+.aliveCell{
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    display: inline-block;
+    background-color: white;
+    border: #282c34 solid 1px;
+}
+
+.deadCell{
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    display: inline-block;
+    background-color: red;
+    border: red solid 1px;
+}
+
+.gameGrid{
+    justify-content: center;
+}

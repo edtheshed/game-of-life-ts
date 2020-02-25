@@ -12,8 +12,8 @@ describe("a game", () => {
     });
 
     it("should have a height and width equal to the requested dimensions", () => {
-        expect(game.height).toEqual(height);
-        expect(game.width).toEqual(width);
+        expect(game.width).toEqual(height);
+        expect(game.height).toEqual(width);
     });
 
     it("should have a board with all cells dead", () => {
