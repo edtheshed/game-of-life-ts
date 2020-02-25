@@ -29,7 +29,7 @@ class App extends React.Component<AppProps, AppState> {
 
     callNext(): void {
         this.props.game.cycle();
-        this.setState({board:this.props.game.board });
+        this.setState({board: this.props.game.board});
     }
 
     setAlive(): void {
@@ -38,17 +38,25 @@ class App extends React.Component<AppProps, AppState> {
         this.props.game.setCellAlive(2, 0);
         this.props.game.setCellAlive(2, 1);
         this.props.game.setCellAlive(2, 2);
-        this.setState({board:this.props.game.board });
+        this.setState({board: this.props.game.board});
+    }
+
+    gameCycle() {
+        if (this.state.alive) {
+            this.callNext();
+            setTimeout(() => this.gameCycle(), 200);
+        }
     }
 
     toggleGame(): void {
-        this.setState({alive:!this.state.alive});
+        this.setState({alive: !this.state.alive});
+        this.gameCycle();
     }
 
     render() {
         return (
             <div className="App">
-                <Header />
+                <Header/>
                 <div>
                     <Grid board={this.state.board}/>
                     <button onClick={this.setAlive}>Give Life</button>
