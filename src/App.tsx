@@ -19,7 +19,7 @@ class App extends React.Component<AppProps, AppState> {
     constructor(props: any) {
         super(props);
         this.callNext = this.callNext.bind(this);
-        this.setAlive = this.setAlive.bind(this);
+        this.createGlider = this.createGlider.bind(this);
         this.toggleGame = this.toggleGame.bind(this);
         this.state = {
             board: props.game.board,
@@ -32,12 +32,18 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({board: this.props.game.board});
     }
 
-    setAlive(): void {
+    createGlider(): void {
         this.props.game.setCellAlive(0, 1);
         this.props.game.setCellAlive(1, 2);
         this.props.game.setCellAlive(2, 0);
         this.props.game.setCellAlive(2, 1);
         this.props.game.setCellAlive(2, 2);
+        this.setState({board: this.props.game.board});
+    }
+
+    setSingleCellAlive(x: number, y: number): void {
+        this.props.game.setCellAlive(x, y);
+
         this.setState({board: this.props.game.board});
     }
 
@@ -48,8 +54,9 @@ class App extends React.Component<AppProps, AppState> {
         }
     }
 
-    toggleGame(): void {
+    async toggleGame(): Promise<void> {
         this.setState({alive: !this.state.alive});
+        await 200;
         this.gameCycle();
     }
 
@@ -57,9 +64,9 @@ class App extends React.Component<AppProps, AppState> {
         return (
             <div className="App">
                 <Header/>
-                <div>
-                    <Grid board={this.state.board}/>
-                    <button onClick={this.setAlive}>Give Life</button>
+                <div className="gameGrid">
+                    <Grid board={this.state.board} setCellAlive={this.setSingleCellAlive}/>
+                    <button onClick={this.createGlider}>Create Glider</button>
                     <button onClick={this.callNext}>Next Cycle</button>
                     <button onClick={this.toggleGame}>Toggle Start</button>
                 </div>

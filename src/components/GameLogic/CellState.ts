@@ -6,5 +6,9 @@ export interface CellState {
 
     isAlive(): boolean;
 
+    getXCoordinate(): number;
+
+    getYCoordinate(): number;
+
     getId(): string;
 }

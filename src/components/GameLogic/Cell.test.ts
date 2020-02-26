@@ -6,7 +6,7 @@ describe("a cell with a dead state", () => {
     let cell: CellState;
 
     beforeEach(() => {
-        cell = new DeadCell("00");
+        cell = new DeadCell(0,0);
     });
 
     it("should be dead", () => {
@@ -42,7 +42,7 @@ describe("a cell with an alive state", () => {
     let cell: CellState;
 
     beforeEach(() => {
-        cell = new AliveCell("11");
+        cell = new AliveCell(1,1);
     });
 
     it("should be alive", () => {

@@ -2,12 +2,13 @@ import React from "react";
 import {CellState} from "../GameLogic/CellState";
 import "./Grid.css"
 
-export function Grid(props: { board: CellState[][] }) {
+export function Grid(props: { board: CellState[][], setCellAlive: any }) {
 
-    const Square = (props: { cellState: CellState }) => {
+    const Square = (props: { cellState: CellState, setCellAlive: any }) => {
         return (
-            <td key={props.cellState.getId()} className={props.cellState.isAlive() ? "aliveCell" : "deadCell"}>
-            </td>
+            <a onClick={() => props.setCellAlive(props.cellState.getId())}>
+                <td key={props.cellState.getId()} className={props.cellState.isAlive() ? "aliveCell" : "deadCell"} />
+            </a>
         );
     }
 
@@ -16,11 +17,11 @@ export function Grid(props: { board: CellState[][] }) {
     }
 
     function renderColumn(cell: CellState) {
-        return <Square cellState={cell}/>
+        return <Square cellState={cell} setCellAlive={props.setCellAlive} />
     }
 
     function render() {
-        return <table className="gameGrid" >{props.board.map(renderRow)}</table>
+        return <table className="gameGrid">{props.board.map(renderRow)}</table>
     }
 
     return (

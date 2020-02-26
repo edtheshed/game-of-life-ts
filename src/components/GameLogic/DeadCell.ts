@@ -5,10 +5,14 @@ export class DeadCell implements CellState {
 
     nextState!: CellState;
 
+    x: number;
+    y: number;
     id: string;
 
-    constructor(id: string) {
-        this.id = id;
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+        this.id = `${x}${y}`;
     }
 
     isAlive(): boolean {
@@ -17,18 +21,26 @@ export class DeadCell implements CellState {
 
     setNextCellState(numberOfNeighbours: number): void {
         if (numberOfNeighbours === 3) {
-            this.nextState = new AliveCell(this.id);
+            this.nextState = new AliveCell(this.x, this.y);
         } else {
-            this.nextState = new DeadCell(this.id);
+            this.nextState = new DeadCell(this.x, this.y);
         }
     }
 
     getNextCellState(): CellState {
-        return this.nextState ? this.nextState : new DeadCell(this.id);
+        return this.nextState ? this.nextState : new DeadCell(this.x, this.y);
     }
 
     getId(): string {
         return this.id;
+    }
+
+    getXCoordinate(): number {
+        return 0;
+    }
+
+    getYCoordinate(): number {
+        return 0;
     }
 
 }
