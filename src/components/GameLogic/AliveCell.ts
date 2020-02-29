@@ -1,17 +1,16 @@
 import {CellState} from "./CellState"
 import {DeadCell} from "./DeadCell";
+import {Coordinate} from "./Coordinate";
 
 export class AliveCell implements CellState {
 
     nextState!: CellState;
-    x: number;
-    y: number;
+    coordinates: Coordinate;
     id: string;
 
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-        this.id = `${x}${y}`;
+    constructor(coordinates: Coordinate) {
+        this.coordinates = coordinates;
+        this.id = `${coordinates.getXCoordinate()}${coordinates.getYCoordinate()}`;
     }
 
     isAlive(): boolean {
@@ -20,14 +19,14 @@ export class AliveCell implements CellState {
 
     setNextCellState(numberOfNeighbours: number): void {
         if (AliveCell.isLonely(numberOfNeighbours) || AliveCell.isOvercrowded(numberOfNeighbours)) {
-            this.nextState = new DeadCell(this.x, this.y);
+            this.nextState = new DeadCell(this.coordinates);
         } else if (AliveCell.isHappyWithLife(numberOfNeighbours)) {
-            this.nextState = new AliveCell(this.x, this.y);
+            this.nextState = new AliveCell(this.coordinates);
         }
     }
 
     getNextCellState(): CellState {
-        return this.nextState ? this.nextState : new AliveCell(this.x, this.y);
+        return this.nextState ? this.nextState : new AliveCell(this.coordinates);
     }
 
     private static isLonely(numberOfNeighbours: number): boolean {
@@ -49,11 +48,7 @@ export class AliveCell implements CellState {
         return this.id;
     }
 
-    getXCoordinate(): number {
-        return this.x;
-    }
-
-    getYCoordinate(): number {
-        return this.y;
+    getCoordinate(): Coordinate {
+        return this.coordinates;
     }
 }

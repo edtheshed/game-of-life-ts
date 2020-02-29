@@ -65,7 +65,7 @@ class App extends React.Component<AppProps, AppState> {
             <div className="App">
                 <Header/>
                 <div className="gameGrid">
-                    <Grid board={this.state.board} setCellAlive={this.setSingleCellAlive}/>
+                    <Grid board={this.state.board} setCellAlive={this.setSingleCellAlive.bind(this)}/>
                     <button onClick={this.createGlider}>Create Glider</button>
                     <button onClick={this.callNext}>Next Cycle</button>
                     <button onClick={this.toggleGame}>Toggle Start</button>

@@ -1,6 +1,7 @@
 import {CellState} from "./CellState";
 import {DeadCell} from "./DeadCell";
 import {AliveCell} from "./AliveCell";
+import {Coordinate} from "./Coordinate";
 
 export default class Game {
     height: number;
@@ -15,13 +16,13 @@ export default class Game {
         for (let x: number = 0; x < width; x++) {
             this.board[x] = [];
             for (let y: number = 0; y < height; y++) {
-                this.board[x][y] = new DeadCell(x, y);
+                this.board[x][y] = new DeadCell(new Coordinate(x, y));
             }
         }
     }
 
     setCellAlive(x: number, y: number): void {
-        this.board[x][y] = new AliveCell(x, y);
+        this.board[x][y] = new AliveCell(new Coordinate(x, y));
     }
 
     isCellAlive(x: number, y: number): boolean {

@@ -1,3 +1,5 @@
+import { Coordinate } from "./Coordinate";
+
 export interface CellState {
 
     setNextCellState(numberOfNeighbours: number): void;
@@ -6,9 +8,7 @@ export interface CellState {
 
     isAlive(): boolean;
 
-    getXCoordinate(): number;
-
-    getYCoordinate(): number;
-
     getId(): string;
+
+    getCoordinate(): Coordinate;
 }

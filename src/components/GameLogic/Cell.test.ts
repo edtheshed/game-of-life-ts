@@ -1,12 +1,13 @@
 import {CellState} from "./CellState";
 import {AliveCell} from "./AliveCell";
 import {DeadCell} from "./DeadCell";
+import {Coordinate} from "./Coordinate";
 
 describe("a cell with a dead state", () => {
     let cell: CellState;
 
     beforeEach(() => {
-        cell = new DeadCell(0,0);
+        cell = new DeadCell(new Coordinate(0,0));
     });
 
     it("should be dead", () => {
@@ -42,7 +43,7 @@ describe("a cell with an alive state", () => {
     let cell: CellState;
 
     beforeEach(() => {
-        cell = new AliveCell(1,1);
+        cell = new AliveCell(new Coordinate(1,1));
     });
 
     it("should be alive", () => {

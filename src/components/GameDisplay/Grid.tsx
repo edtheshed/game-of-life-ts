@@ -6,7 +6,7 @@ export function Grid(props: { board: CellState[][], setCellAlive: any }) {
 
     const Square = (props: { cellState: CellState, setCellAlive: any }) => {
         return (
-            <a onClick={() => props.setCellAlive(props.cellState.getId())}>
+            <a onClick={() => props.setCellAlive(props.cellState.getCoordinate().getXCoordinate(), props.cellState.getCoordinate().getYCoordinate())}>
                 <td key={props.cellState.getId()} className={props.cellState.isAlive() ? "aliveCell" : "deadCell"} />
             </a>
         );

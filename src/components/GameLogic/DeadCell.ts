@@ -1,18 +1,17 @@
 import {CellState} from "./CellState"
 import {AliveCell} from "./AliveCell";
+import {Coordinate} from "./Coordinate";
 
 export class DeadCell implements CellState {
 
     nextState!: CellState;
 
-    x: number;
-    y: number;
+    coordinates: Coordinate;
     id: string;
 
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-        this.id = `${x}${y}`;
+    constructor(coordinates: Coordinate) {
+        this.coordinates = coordinates;
+        this.id = `${coordinates.getXCoordinate()}${coordinates.getYCoordinate()}`;
     }
 
     isAlive(): boolean {
@@ -21,26 +20,22 @@ export class DeadCell implements CellState {
 
     setNextCellState(numberOfNeighbours: number): void {
         if (numberOfNeighbours === 3) {
-            this.nextState = new AliveCell(this.x, this.y);
+            this.nextState = new AliveCell(this.coordinates);
         } else {
-            this.nextState = new DeadCell(this.x, this.y);
+            this.nextState = new DeadCell(this.coordinates);
         }
     }
 
     getNextCellState(): CellState {
-        return this.nextState ? this.nextState : new DeadCell(this.x, this.y);
+        return this.nextState ? this.nextState : new DeadCell(this.coordinates);
     }
 
     getId(): string {
         return this.id;
     }
 
-    getXCoordinate(): number {
-        return 0;
+    getCoordinate(): Coordinate {
+        return this.coordinates;
     }
-
-    getYCoordinate(): number {
-        return 0;
-    }
-
 }
+

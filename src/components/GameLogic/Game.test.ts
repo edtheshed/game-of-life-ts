@@ -1,4 +1,5 @@
 import Game from "./Game";
+import {CellState} from "./CellState";
 
 describe("a game", () => {
     let height: number;
@@ -33,6 +34,10 @@ describe("a game", () => {
         it("should be alive", () => {
             expect(game.isCellAlive(2, 2)).toBeTruthy();
         });
+
+        it("should record the live cell coordinates", () => {
+            let liveCellList: CellState[]
+        })
 
         describe("after one cycle", () => {
             it("should be dead", () => {
