@@ -8,12 +8,15 @@ export default class Game {
     width: number;
     board: CellState[][];
     liveCells: Coordinate[];
+    modifiedCells: Coordinate[];
 
     constructor(width: number, height: number) {
         this.height = height;
         this.width = width;
         this.board = new Array<Array<CellState>>();
         this.liveCells = new Array<Coordinate>();
+        this.modifiedCells = new Array<Coordinate>();
+
 
         for (let x: number = 0; x < width; x++) {
             this.board[x] = [];
@@ -45,7 +48,8 @@ export default class Game {
                 }
             });
             this.calculateNextCell(this.board[liveCell.x][liveCell.y],
-                this.countAliveNeighbours(liveCell.x, liveCell.y))
+                this.countAliveNeighbours(liveCell.x, liveCell.y));
+            this.modifiedCells.push(new Coordinate(liveCell.x,liveCell.y));
         });
 
         liveCellNeighboursCoords.forEach(cell => {
@@ -55,22 +59,22 @@ export default class Game {
 
         let newLiveCells: Coordinate[] = [];
 
-        for (let y: number = 0; y < this.height; y++) {
-            for (let x: number = 0; x < this.width; x++) {
-                let newCell: CellState = this.board[x][y].getNextCellState();
-                this.board[x][y] = newCell;
-                if (newCell.isAlive()) {
-                    newLiveCells.push(new Coordinate(x, y));
-                }
+        this.modifiedCells.forEach(mod => {
+            let newCell: CellState = this.board[mod.x][mod.y].getNextCellState();
+            this.board[mod.x][mod.y] = newCell;
+            if (newCell.isAlive()) {
+                newLiveCells.push(mod);
             }
-        }
+        });
 
+        this.modifiedCells = [];
         this.liveCells = newLiveCells;
     }
 
     private calculateNextCell(cell: CellState, numberOfNeighbours: number) {
         if (cell.isAlive() || numberOfNeighbours === 3) {
             cell.setNextCellState(numberOfNeighbours);
+            this.modifiedCells.push(cell.getCoordinate());
         }
     }
 
