@@ -35,10 +35,6 @@ describe("a game", () => {
             expect(game.isCellAlive(2, 2)).toBeTruthy();
         });
 
-        it("should record the live cell coordinates", () => {
-            let liveCellList: CellState[]
-        })
-
         describe("after one cycle", () => {
             it("should be dead", () => {
                 game.cycle();
@@ -61,6 +57,8 @@ describe("a game", () => {
                 expect(game.isCellAlive(1, 1)).toBeFalsy();
                 expect(game.isCellAlive(1, 3)).toBeFalsy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
+                expect(game.isCellAlive(0, 2)).toBeTruthy();
+                expect(game.isCellAlive(2, 2)).toBeTruthy();
             })
         })
 
@@ -68,6 +66,8 @@ describe("a game", () => {
             it("should have all of the original three remaining alive", () => {
                 game.cycle();
                 game.cycle();
+                expect(game.isCellAlive(0, 2)).toBeFalsy();
+                expect(game.isCellAlive(2, 2)).toBeFalsy();
                 expect(game.isCellAlive(1, 1)).toBeTruthy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
                 expect(game.isCellAlive(1, 3)).toBeTruthy();

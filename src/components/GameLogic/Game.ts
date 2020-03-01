@@ -7,11 +7,13 @@ export default class Game {
     height: number;
     width: number;
     board: CellState[][];
+    liveCells: Coordinate[];
 
     constructor(width: number, height: number) {
         this.height = height;
         this.width = width;
         this.board = new Array<Array<CellState>>();
+        this.liveCells = new Array<Coordinate>();
 
         for (let x: number = 0; x < width; x++) {
             this.board[x] = [];
@@ -23,6 +25,7 @@ export default class Game {
 
     setCellAlive(x: number, y: number): void {
         this.board[x][y] = new AliveCell(new Coordinate(x, y));
+        this.liveCells.push(new Coordinate(x, y));
     }
 
     isCellAlive(x: number, y: number): boolean {
@@ -30,32 +33,56 @@ export default class Game {
     }
 
     cycle(): void {
+        let liveCellNeighboursCoords: { key: string, coordinate: Coordinate }[] = [];
+
+        this.liveCells.forEach(liveCell => {
+            let liveCellNeighbours = liveCell.getNeighbours();
+            liveCellNeighbours.forEach(cell => {
+                if (liveCellNeighboursCoords.filter(f => f.key === cell.getId()).length === 0) {
+                    if (this.isInBounds(cell.x, cell.y)) {
+                        liveCellNeighboursCoords.push({key: cell.getId(), coordinate: cell})
+                    }
+                }
+            });
+            this.calculateNextCell(this.board[liveCell.x][liveCell.y],
+                this.countAliveNeighbours(liveCell.x, liveCell.y))
+        });
+
+        liveCellNeighboursCoords.forEach(cell => {
+            let numberOfAliveNeighbours = this.countAliveNeighbours(cell.coordinate.x, cell.coordinate.y);
+            this.calculateNextCell(this.board[cell.coordinate.x][cell.coordinate.y], numberOfAliveNeighbours);
+        });
+
+        let newLiveCells: Coordinate[] = [];
+
         for (let y: number = 0; y < this.height; y++) {
             for (let x: number = 0; x < this.width; x++) {
-                let numberOfNeighbours = this.countNeighbours(x, y);
-
-                if (this.board[x][y].isAlive() || numberOfNeighbours === 3) {
-                    this.board[x][y].setNextCellState(numberOfNeighbours);
+                let newCell: CellState = this.board[x][y].getNextCellState();
+                this.board[x][y] = newCell;
+                if (newCell.isAlive()) {
+                    newLiveCells.push(new Coordinate(x, y));
                 }
             }
         }
 
-        for (let y: number = 0; y < this.height; y++) {
-            for (let x: number = 0; x < this.width; x++) {
-                this.board[x][y] = this.board[x][y].getNextCellState();
-            }
+        this.liveCells = newLiveCells;
+    }
+
+    private calculateNextCell(cell: CellState, numberOfNeighbours: number) {
+        if (cell.isAlive() || numberOfNeighbours === 3) {
+            cell.setNextCellState(numberOfNeighbours);
         }
     }
 
-    private countNeighbours(x: number, y: number) {
+    private countAliveNeighbours(x: number, y: number) {
         return (
-            this.countRowNeighbours(x, y) +
-            this.countColumnNeighbours(x, y) +
-            this.countDiagonalNeighbours(x, y)
+            this.countAliveRowNeighbours(x, y) +
+            this.countAliveColumnNeighbours(x, y) +
+            this.countAliveDiagonalNeighbours(x, y)
         );
     }
 
-    private countRowNeighbours(x: number, y: number): number {
+    private countAliveRowNeighbours(x: number, y: number): number {
         let neighbours = 0;
         if (x !== 0) {
             if (this.board[x - 1][y].isAlive()) neighbours++;
@@ -66,7 +93,7 @@ export default class Game {
         return neighbours;
     }
 
-    private countColumnNeighbours(x: number, y: number): number {
+    private countAliveColumnNeighbours(x: number, y: number): number {
         let neighbours = 0;
         if (y !== 0) {
             if (this.board[x][y - 1].isAlive()) neighbours++;
@@ -77,7 +104,7 @@ export default class Game {
         return neighbours;
     }
 
-    private countDiagonalNeighbours(x: number, y: number): number {
+    private countAliveDiagonalNeighbours(x: number, y: number): number {
         let neighbours = 0;
         if (x !== 0 && y !== 0) {
             if (this.board[x - 1][y - 1].isAlive()) neighbours++;
@@ -92,5 +119,9 @@ export default class Game {
             if (this.board[x - 1][y + 1].isAlive()) neighbours++;
         }
         return neighbours;
+    }
+
+    private isInBounds(x: number, y: number): boolean {
+        return (x > -1 && x < this.board.length && y > -1 && y < this.board[x].length)
     }
 }
