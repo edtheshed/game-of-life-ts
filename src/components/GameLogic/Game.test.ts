@@ -56,6 +56,8 @@ describe("a game", () => {
                 expect(game.isCellAlive(1, 1)).toBeFalsy();
                 expect(game.isCellAlive(1, 3)).toBeFalsy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
+                expect(game.isCellAlive(2, 2)).toBeTruthy();
+                expect(game.isCellAlive(0, 2)).toBeTruthy();
             })
         })
 
@@ -66,6 +68,8 @@ describe("a game", () => {
                 expect(game.isCellAlive(1, 1)).toBeTruthy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
                 expect(game.isCellAlive(1, 3)).toBeTruthy();
+                expect(game.isCellAlive(2, 2)).toBeFalsy();
+                expect(game.isCellAlive(0, 2)).toBeFalsy();
             })
         })
     })

@@ -12,7 +12,7 @@ export class DeadCell implements CellState {
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
-        this.id = `${x}${y}`;
+        this.id = `${x}:${y}`;
     }
 
     isAlive(): boolean {
@@ -36,11 +36,11 @@ export class DeadCell implements CellState {
     }
 
     getXCoordinate(): number {
-        return 0;
+        return this.x;
     }
 
     getYCoordinate(): number {
-        return 0;
+        return this.y;
     }
 
 }

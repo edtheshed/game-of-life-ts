@@ -50,7 +50,7 @@ class App extends React.Component<AppProps, AppState> {
     gameCycle() {
         if (this.state.alive) {
             this.callNext();
-            setTimeout(() => this.gameCycle(), 200);
+            setTimeout(() => this.gameCycle(), 20);
         }
     }
 
