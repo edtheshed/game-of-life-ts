@@ -33,16 +33,16 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     createGlider(): void {
-        this.props.game.setCellAlive(0, 1);
-        this.props.game.setCellAlive(1, 2);
-        this.props.game.setCellAlive(2, 0);
-        this.props.game.setCellAlive(2, 1);
-        this.props.game.setCellAlive(2, 2);
+        this.props.game.toggleCellState(0, 1);
+        this.props.game.toggleCellState(1, 2);
+        this.props.game.toggleCellState(2, 0);
+        this.props.game.toggleCellState(2, 1);
+        this.props.game.toggleCellState(2, 2);
         this.setState({board: this.props.game.board});
     }
 
-    setSingleCellAlive(x: number, y: number): void {
-        this.props.game.setCellAlive(x, y);
+    toggleCellState(x: number, y: number): void {
+        this.props.game.toggleCellState(x, y);
 
         this.setState({board: this.props.game.board});
     }
@@ -65,7 +65,7 @@ class App extends React.Component<AppProps, AppState> {
             <div className="App">
                 <Header/>
                 <div className="gameGrid">
-                    <Grid board={this.state.board} setCellAlive={this.setSingleCellAlive}/>
+                    <Grid board={this.state.board} toggleCellState={this.toggleCellState.bind(this)}/>
                     <button onClick={this.createGlider}>Create Glider</button>
                     <button onClick={this.callNext}>Next Cycle</button>
                     <button onClick={this.toggleGame}>Toggle Start</button>

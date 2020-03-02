@@ -20,8 +20,12 @@ export default class Game {
         }
     }
 
-    setCellAlive(x: number, y: number): void {
-        this.board[x][y] = new AliveCell(x, y);
+    toggleCellState(x: number, y: number): void {
+        if (this.board[x][y].isAlive()){
+            this.board[x][y] = new DeadCell(x, y);
+        } else {
+            this.board[x][y] = new AliveCell(x, y);
+        }
     }
 
     isCellAlive(x: number, y: number): boolean {
