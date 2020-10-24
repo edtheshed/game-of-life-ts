@@ -27,7 +27,7 @@ describe("a game", () => {
     describe("with one alive cell", () => {
 
         beforeEach(() => {
-            game.setCellAlive(2, 2);
+            game.toggleCellState(2, 2);
         });
 
         it("should be alive", () => {
@@ -45,9 +45,9 @@ describe("a game", () => {
     describe("with three alive cells next to each other", () => {
 
         beforeEach(() => {
-            game.setCellAlive(1, 1);
-            game.setCellAlive(1, 2);
-            game.setCellAlive(1, 3);
+            game.toggleCellState(1, 1);
+            game.toggleCellState(1, 2);
+            game.toggleCellState(1, 3);
         });
 
         describe("after one cycle", () => {
@@ -56,6 +56,8 @@ describe("a game", () => {
                 expect(game.isCellAlive(1, 1)).toBeFalsy();
                 expect(game.isCellAlive(1, 3)).toBeFalsy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
+                expect(game.isCellAlive(2, 2)).toBeTruthy();
+                expect(game.isCellAlive(0, 2)).toBeTruthy();
             })
         })
 
@@ -66,6 +68,8 @@ describe("a game", () => {
                 expect(game.isCellAlive(1, 1)).toBeTruthy();
                 expect(game.isCellAlive(1, 2)).toBeTruthy();
                 expect(game.isCellAlive(1, 3)).toBeTruthy();
+                expect(game.isCellAlive(2, 2)).toBeFalsy();
+                expect(game.isCellAlive(0, 2)).toBeFalsy();
             })
         })
     })

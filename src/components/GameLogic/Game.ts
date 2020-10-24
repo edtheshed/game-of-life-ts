@@ -20,8 +20,12 @@ export default class Game {
         }
     }
 
-    setCellAlive(x: number, y: number): void {
-        this.board[x][y] = new AliveCell(x, y);
+    toggleCellState(x: number, y: number): void {
+        if (this.board[x][y].isAlive()){
+            this.board[x][y] = new DeadCell(x, y);
+        } else {
+            this.board[x][y] = new AliveCell(x, y);
+        }
     }
 
     isCellAlive(x: number, y: number): boolean {
@@ -29,21 +33,22 @@ export default class Game {
     }
 
     cycle(): void {
+        let modifiedCells: CellState[] = [];
         for (let y: number = 0; y < this.height; y++) {
             for (let x: number = 0; x < this.width; x++) {
                 let numberOfNeighbours = this.countNeighbours(x, y);
 
                 if (this.board[x][y].isAlive() || numberOfNeighbours === 3) {
                     this.board[x][y].setNextCellState(numberOfNeighbours);
+                    modifiedCells.push(this.board[x][y]);
                 }
             }
         }
 
-        for (let y: number = 0; y < this.height; y++) {
-            for (let x: number = 0; x < this.width; x++) {
-                this.board[x][y] = this.board[x][y].getNextCellState();
-            }
-        }
+        modifiedCells.forEach(cell => {
+            let x: number = cell.getXCoordinate();
+            let y: number = cell.getYCoordinate();
+            this.board[x][y] = cell.getNextCellState()})
     }
 
     private countNeighbours(x: number, y: number) {
