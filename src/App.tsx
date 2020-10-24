@@ -50,7 +50,7 @@ class App extends React.Component<AppProps, AppState> {
     gameCycle() {
         if (this.state.alive) {
             this.callNext();
-            setTimeout(() => this.gameCycle(), 20);
+            setTimeout(() => this.gameCycle(), 10);
         }
     }
 
@@ -66,9 +66,11 @@ class App extends React.Component<AppProps, AppState> {
                 <Header/>
                 <div className="gameGrid">
                     <Grid board={this.state.board} toggleCellState={this.toggleCellState.bind(this)}/>
-                    <button onClick={this.createGlider}>Create Glider</button>
-                    <button onClick={this.callNext}>Next Cycle</button>
-                    <button onClick={this.toggleGame}>Toggle Start</button>
+                    <div>
+                        <button onClick={this.createGlider}>Create Glider</button>
+                        <button onClick={this.callNext}>Next Cycle</button>
+                        <button onClick={this.toggleGame}>Toggle Start</button>
+                    </div>
                 </div>
             </div>
         )
